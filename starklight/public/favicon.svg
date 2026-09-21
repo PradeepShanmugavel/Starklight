@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="55%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e0e7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#g)"/>
+  <!-- Four-point sparkle: the "light" in Starklight -->
+  <path d="M32 11 L36.4 26.2 L51 32 L36.4 37.8 L32 53 L27.6 37.8 L13 32 L27.6 26.2 Z" fill="url(#s)"/>
+  <circle cx="47" cy="17" r="3.6" fill="#ffffff" opacity="0.95"/>
+  <circle cx="16.5" cy="45" r="2.4" fill="#ffffff" opacity="0.8"/>
+</svg>

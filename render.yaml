@@ -1,0 +1,35 @@
+# Render blueprint — one web service that serves both the API and the built UI.
+#
+# Two services would mean CORS config, two URLs, and (on the free tier) two
+# things that sleep independently. Express already serves starklight/dist, so
+# one service is simpler and cheaper.
+services:
+  - type: web
+    name: starklight
+    runtime: node
+    plan: free
+    # Install both workspaces, build the client, leave the server ready to run.
+    buildCommand: npm run render-build
+    startCommand: npm start
+    healthCheckPath: /api/history/status
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Secrets are NOT committed. Set each of these in the Render dashboard
+      # (Environment tab) or paste them when the blueprint prompts.
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: HF_API_KEY
+        sync: false
+      # Postgres connection string for Topic Alignment history.
+      - key: DATABASE_URL
+        sync: false
+      # Needed by Solution Manager / Language Manager's Examly integration.
+      - key: EXAMLY_BASE_URL
+        value: https://api.examly.io
+      - key: SCHOOL_ID
+        sync: false

@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --panel-raised: #1c2029;
+  --border: #262a33;
+  --text: #e7e9ee;
+  --muted: #9aa2b1;
+  --accent: #5b8cff;
+  --accent-2: #7aa2ff;
+  --danger: #ff6b6b;
+  --good: #38c172;
+  --avg: #f2c94c;
+  --bad: #ff8c42;
+  --worse: #ff5252;
+
+  /* ---- Theme-aware tokens (dark = default) ---- */
+  --c-bg-app: #0f1115;
+  --c-glow-1: rgba(99, 102, 241, 0.16);
+  --c-glow-2: rgba(16, 185, 129, 0.10);
+  --c-glow-3: rgba(99, 102, 241, 0.08);
+  --c-panel: rgba(255, 255, 255, 0.02);
+  --c-panel-hover: rgba(255, 255, 255, 0.03);
+  --c-surface: #171a21;
+  --c-surface-2: #12141a;
+  --c-border: rgba(255, 255, 255, 0.10);
+  --c-scrollbar: #2a2f3a;
+  --c-scrollbar-hover: #383f4d;
+  --c-text-body: #e2e5eb;
+  --c-text-muted: #9aa2b1;
+  --c-text-muted-2: #6b7385;
+  --c-input-bg: rgba(0, 0, 0, 0.3);
+  --c-input-bg-solid: #0d0f14;
+}
+
+html.light {
+  --c-bg-app: #f3f4f6;
+  --c-glow-1: rgba(99, 102, 241, 0.10);
+  --c-glow-2: rgba(16, 185, 129, 0.07);
+  --c-glow-3: rgba(99, 102, 241, 0.05);
+  --c-panel: rgba(15, 17, 21, 0.035);
+  --c-panel-hover: rgba(15, 17, 21, 0.06);
+  --c-surface: #ffffff;
+  --c-surface-2: #eef0f3;
+  --c-border: rgba(15, 17, 21, 0.12);
+  --c-scrollbar: #d3d6db;
+  --c-scrollbar-hover: #b9bdc4;
+  --c-text-body: #20232a;
+  --c-text-muted: #565f6e;
+  --c-text-muted-2: #7c8594;
+  --c-input-bg: rgba(255, 255, 255, 0.9);
+  --c-input-bg-solid: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--c-text-body);
+  background-color: var(--c-bg-app);
+  background-image:
+    radial-gradient(ellipse 800px 500px at 15% -10%, var(--c-glow-1), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 0%, var(--c-glow-2), transparent 55%),
+    radial-gradient(ellipse 900px 600px at 50% 110%, var(--c-glow-3), transparent 60%);
+  background-attachment: fixed;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--c-scrollbar); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-scrollbar-hover); }
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.45; }
+  100% { opacity: 1; }
+}
+.animate-pulse-soft { animation: pulse 1.4s infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, rgba(128,128,128,0.08) 25%, rgba(128,128,128,0.16) 37%, rgba(128,128,128,0.08) 63%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.input {
+  width: 100%;
+  background-color: var(--c-input-bg);
+  border: 1px solid var(--c-border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.15s ease;
+  color: var(--c-text-body);
+}
+.input:focus {
+  border-color: rgba(129, 140, 248, 0.6);
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
+}
+.input::placeholder {
+  color: var(--c-text-muted-2);
+}
+
+/* ---- Theme-aware replacements for what used to be hardcoded dark-only Tailwind classes.
+   A global pass swapped border-white/10 -> border-theme, bg-white/[0.02] -> bg-panel, etc.
+   across the app so toggling <html class="light"> retints everything through these vars. ---- */
+.border-theme { border-color: var(--c-border) !important; }
+.bg-panel { background-color: var(--c-panel) !important; }
+.bg-panel-hover:hover { background-color: var(--c-panel-hover) !important; }
+.bg-surface { background-color: var(--c-surface) !important; }
+.bg-surface-translucent { background-color: color-mix(in srgb, var(--c-surface) 70%, transparent) !important; }
+.bg-surface-glass { background-color: color-mix(in srgb, var(--c-surface) 80%, transparent) !important; }
+.bg-surface-2 { background-color: var(--c-surface-2) !important; }
+.bg-input-surface { background-color: var(--c-input-bg-solid) !important; }
+.text-muted { color: var(--c-text-muted) !important; }
+.text-muted2 { color: var(--c-text-muted-2) !important; }
+.text-body-app { color: var(--c-text-body) !important; }
+.divide-theme > :not([hidden]) ~ :not([hidden]) { border-color: var(--c-border) !important; }
+.hover-strong { transition: color 0.15s ease; }
+.hover-strong:hover { color: var(--c-text-body) !important; }
+
+/* ---- Accent "pill" tokens — separate from the plain panel/border tokens above because a
+   translucent indigo tint that reads fine on a near-black background goes washed-out and
+   low-contrast on a near-white one; these get a stronger, more saturated treatment in light
+   mode instead of just inheriting the dark-mode values. ---- */
+:root {
+  --c-accent-pill-bg: rgba(99, 102, 241, 0.20);
+  --c-accent-pill-text: #a5b4fc;
+}
+html.light {
+  --c-accent-pill-bg: rgba(79, 70, 229, 0.14);
+  --c-accent-pill-text: #4338ca;
+}
+.bg-accent-pill { background-color: var(--c-accent-pill-bg) !important; }
+.text-accent-pill { color: var(--c-accent-pill-text) !important; }
+
+/* Same washed-out-in-light-mode problem applies to every colored status badge (priority
+   tiers, debug counts) — each hue gets an explicit light-mode override instead of just
+   inheriting the translucent dark-mode tint at low contrast. */
+:root {
+  --c-badge-yellow-bg: rgba(234, 179, 8, 0.20); --c-badge-yellow-text: #fbbf24;
+  --c-badge-slate-bg: rgba(203, 213, 225, 0.20); --c-badge-slate-text: var(--c-text-body);
+  --c-badge-amber-bg: rgba(180, 83, 9, 0.20); --c-badge-amber-text: #f59e0b;
+  --c-badge-blue-bg: rgba(59, 130, 246, 0.20); --c-badge-blue-text: #60a5fa;
+  --c-badge-green-bg: rgba(34, 197, 94, 0.20); --c-badge-green-text: #4ade80;
+  --c-badge-fuchsia-text: #e879f9;
+  --c-badge-cyan-text: #22d3ee;
+}
+html.light {
+  --c-badge-yellow-bg: rgba(202, 138, 4, 0.15); --c-badge-yellow-text: #854d0e;
+  --c-badge-slate-bg: rgba(100, 116, 139, 0.15); --c-badge-slate-text: #334155;
+  --c-badge-amber-bg: rgba(180, 83, 9, 0.15); --c-badge-amber-text: #92400e;
+  --c-badge-blue-bg: rgba(37, 99, 235, 0.13); --c-badge-blue-text: #1d4ed8;
+  --c-badge-green-bg: rgba(21, 128, 61, 0.13); --c-badge-green-text: #15803d;
+  --c-badge-fuchsia-text: #a21caf;
+  --c-badge-cyan-text: #0e7490;
+}
+.badge-yellow { background-color: var(--c-badge-yellow-bg) !important; color: var(--c-badge-yellow-text) !important; }
+.badge-slate { background-color: var(--c-badge-slate-bg) !important; color: var(--c-badge-slate-text) !important; }
+.badge-amber { background-color: var(--c-badge-amber-bg) !important; color: var(--c-badge-amber-text) !important; }
+.badge-blue { background-color: var(--c-badge-blue-bg) !important; color: var(--c-badge-blue-text) !important; }
+.badge-green { background-color: var(--c-badge-green-bg) !important; color: var(--c-badge-green-text) !important; }
+.text-badge-fuchsia { color: var(--c-badge-fuchsia-text) !important; }
+.text-badge-cyan { color: var(--c-badge-cyan-text) !important; }
+
+
+/* ---- Rendered question HTML from the portal ----
+   The editor authors against a white background, so its markup frequently carries inline
+   colours that vanish on a dark theme. RichHtml strips those on render; this is the belt-and-
+   braces layer that also catches colours applied via class or nested style we didn't reach.
+   Note: the app never had @tailwindcss/typography installed, so the `prose` classes on these
+   blocks were inert — this supplies the small amount of spacing they were meant to provide. */
+.rich-html { color: var(--c-text-body); }
+.rich-html * { color: inherit !important; background-color: transparent !important; }
+.rich-html p { margin: 0 0 0.4em; }
+.rich-html p:last-child { margin-bottom: 0; }
+.rich-html ul, .rich-html ol { margin: 0.3em 0 0.4em; padding-left: 1.35em; }
+.rich-html ul { list-style: disc; }
+.rich-html ol { list-style: decimal; }
+.rich-html li { margin: 0.12em 0; }
+.rich-html strong, .rich-html b { font-weight: 700; }
+.rich-html em, .rich-html i { font-style: italic; }
+.rich-html u { text-decoration: underline; }
+.rich-html code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  background-color: var(--c-panel) !important;
+  border: 1px solid var(--c-border);
+  border-radius: 4px;
+  padding: 0.05em 0.3em;
+}
+.rich-html pre {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  padding: 0.6em 0.7em;
+  overflow-x: auto;
+  margin: 0.4em 0;
+}
+.rich-html pre code { background: none !important; border: 0; padding: 0; }
+.rich-html a { color: var(--c-accent-pill-text) !important; text-decoration: underline; }
+.rich-html table { border-collapse: collapse; margin: 0.4em 0; }
+.rich-html th, .rich-html td { border: 1px solid var(--c-border); padding: 0.25em 0.5em; }
+.rich-html img { max-width: 100%; height: auto; border-radius: 6px; }
+
+
+/* Code snippets extracted from `$$$examly` markers in question text — deliberately compact
+   (small type, capped height, own scroll) so a 30-line program doesn't push the rest of the
+   question off screen. */
+.rich-html pre.examly-code {
+  background-color: rgba(0, 0, 0, 0.42) !important;
+  border: 1px solid var(--c-border);
+  border-left: 3px solid var(--c-accent-pill-text);
+  border-radius: 8px;
+  padding: 0.55em 0.7em;
+  margin: 0.5em 0;
+  max-height: 14rem;
+  overflow: auto;
+  font-size: 11px;
+  line-height: 1.55;
+  white-space: pre;
+  tab-size: 2;
+}
+.rich-html pre.examly-code code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+  color: var(--c-text-body) !important;
+}
+html.light .rich-html pre.examly-code {
+  background-color: rgba(15, 17, 21, 0.05) !important;
+}
+
+/* Subtle press feedback for any button — makes the whole app feel more responsive/alive */
+button:not(:disabled) {
+  transition: transform 0.1s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+button:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+/* Smooth theme-switch fade across the whole app, not just the body background */
+* {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+/* Respect the OS "reduce motion" setting. The app leans on framer-motion
+   throughout; this switches off the purely decorative looping animations
+   (the login aurora, the mark's float and halo) while leaving functional
+   transitions alone. The stylesheet previously honoured this setting
+   nowhere at all. */
+@media (prefers-reduced-motion: reduce) {
+  .motion-decorative {
+    animation: none !important;
+    transition: none !important;
+  }
+}

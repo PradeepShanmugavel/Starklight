@@ -1,0 +1,23 @@
+# Secrets — never commit. Keys live in .env locally and in Render's
+# environment variables in production.
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs / OS / editor noise
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Scratch files
+__*.js

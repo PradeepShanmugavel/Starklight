@@ -1,0 +1,18 @@
+{
+  "name": "starklight",
+  "version": "2.0.0",
+  "private": true,
+  "description": "QC and content tooling for the Examly/iamneo assessment portal",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "install-all": "npm --prefix backend install && npm --prefix starklight install",
+    "render-build": "npm --prefix backend install && npm --prefix starklight install && npm --prefix starklight run build",
+    "build": "npm --prefix starklight run build",
+    "start": "node backend/server.js",
+    "dev:server": "node backend/server.js",
+    "dev:client": "npm --prefix starklight run dev",
+    "lint": "npm --prefix starklight run lint"
+  }
+}
